@@ -131,3 +131,114 @@ export const fetchUpdateFailed = (error) => {
     error
   }
 }
+
+export const showEditModal = (updateToEdit) => {
+  return {
+    type:'SHOW_EDIT_MODAL',
+    update:updateToEdit
+  }
+}
+
+export const hideEditModal = () => {
+  return {
+    type:'HIDE_EDIT_MODAL'
+  }
+}
+
+export const editUpdate = (update) => {
+    return (dispatch) => {
+      dispatch(editUpdateRequest(update));
+      return fetch(apiUrl, {
+        method:'put',
+        body:update
+      }).then(response => {
+        if(response.ok){
+          response.json().then(data => {
+            dispatch(editUpdateSuccess(data.update,data.message));
+          })
+        }
+        else{
+          response.json().then(error => {
+            dispatch(editUpdateFailed(error));
+          })
+        }
+      })
+    }
+}
+
+export const editUpdateRequest = (update) => {
+   return {
+     type:'EDIT_UPDATE_REQUEST',
+     update
+   }
+}
+
+export const editUpdateSuccess = (update,message) => {
+  return {
+    type:'EDIT_UPDATE_SUCCESS',
+    update:update,
+    message:message
+  }
+}
+
+export const editUpdateFailed = (error) => {
+  return {
+    type:'EDIT_UPDATE_FAILED',
+    error
+  }
+}
+
+export const deleteUpdate = (update) => {
+  return (dispatch) => {
+    dispatch(deleteUpdateRequest(update));
+    return fetch(apiUrl + update._id ,{
+      method:'delete'
+    }).then(response => {
+      if(response.ok){
+        response.json().then(data => {
+          dispatch(deleteUpdateSuccess(data.message));
+        })
+      }
+      else{
+        response.json().then(error => {
+          dispatch(deleteUpdateFailed(error));
+        })
+      }
+    })
+
+  }
+}
+
+export const deleteUpdateRequest = (update) => {
+   return {
+     type:'DELETE_UPDATE_REQUEST',
+     update
+   }
+}
+
+export const deleteUpdateSuccess = (message) => {
+  return {
+    type:'DELETE_UPDATE_SUCCESS',
+    message:message
+  }
+}
+
+export const deleteUpdateFailed = (error) => {
+  return {
+    type:'DELETE_UPDATE_FAILED',
+    error
+  }
+}
+
+export const showDeleteModal = (updateToDelete) => {
+  return {
+    type:'SHOW_DELETE_MODAL',
+    update:updateToDelete
+  }
+}
+
+export const hideDeleteModal = () => {
+  return {
+    type:'HIDE_DELETE_MODAL'
+  }
+}
