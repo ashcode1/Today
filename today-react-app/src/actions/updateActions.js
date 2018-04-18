@@ -48,3 +48,44 @@ export const addNewUpdateRequestFailed = (error) => {
     error
   }
 }
+
+export const fetchUpdates = () => {
+  return (dispatch) => {
+    dispatch(fetchUpdatesRequest());
+    return fetch(apiUrl)
+      .then(response => {
+        if(response.ok){
+          response.json().then(data => {
+            dispatch(fetchUpdatesSuccess(data.updates,data.message));
+          })
+        }
+        else{
+          response.json().then(error => {
+            dispatch(fetchUpdatesFailed(error));
+          })
+        }
+      })
+  }
+}
+
+export const fetchUpdatesRequest = () => {
+  return {
+    type:'FETCH_UPDATES_REQUEST'
+  }
+}
+
+export const fetchUpdatesSuccess = (updates,message) => {
+  return {
+    type: 'FETCH_UPDATES_SUCCESS',
+    updates: updates,
+    message: message,
+    receivedAt: Date.now
+  }
+}
+
+export const fetchUpdatesFailed = (error) => {
+  return {
+    type:'FETCH_UPDATES_FAILED',
+    error
+  }
+}
