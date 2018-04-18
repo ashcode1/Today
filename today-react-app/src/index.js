@@ -1,8 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { routerReducer as routing } from 'react-router-redux';
+import { combineReducers } from 'redux';
+import appReducer from './appReducer';
+import {updateReducer} from './updateReducer';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+export default combineReducers({
+  appState:appReducer,
+  updateState:updateReducer,
+  routing
+})

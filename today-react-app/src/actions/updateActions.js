@@ -1,6 +1,6 @@
 const apiUrl = "/api/";
 
-export const toggleAddBook = () => {
+export const toggleAddUpdate = () => {
   return {
     type: 'TOGGLE_ADD_UPDATE'
   }
