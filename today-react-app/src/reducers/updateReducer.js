@@ -108,6 +108,57 @@ export  const updateReducer = (currentState = INITIAL_STATE, action) => {
             newUpdate: action.update
           }
         return nextState;
+      
+    case 'EDIT_UPDATE_REQUEST':
+          return {
+            ...currentState,
+            updates:currentState.updates,
+            update:null,
+            isFetching: true,
+            error: null,
+            successMsg:null,
+            showDeleteModal: false,
+            updateToDelete: null,
+            showEditModal: true,
+            updateToEdit: action.update,
+            newUpdate: null
+          }
+
+    case 'EDIT_UPDATE_SUCCESS':
+        const updatedUpdates = currentState.updates.map((update) => {
+          if(update._id !== action.update._id){
+            return update;
+          }
+          return { ...update, ...action.update }
+        })
+          return {
+            ...currentState,
+            updates:updatedUpdates,
+            update:null,
+            isFetching: false,
+            error: null,
+            successMsg:action.message,
+            showDeleteModal: false,
+            updateToDelete: null,
+            showEditModal: true,
+            updateToEdit: action.update,
+            newUpdate: null
+          }
+
+    case 'EDIT_UPDATE_FAILED':
+          return {
+            ...currentState,
+            updates:currentState.updates,
+            update:null,
+            isFetching: false,
+            error: action.error,
+            successMsg:null,
+            showDeleteModal: false,
+            updateToDelete: null,
+            showEditModal: true,
+            updateToEdit: currentState.updateToEdit,
+            newUpdate: null
+          }
 
     default:
        return currentState;
