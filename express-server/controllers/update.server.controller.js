@@ -1,7 +1,25 @@
 import mongoose from 'mongoose';
-import assert from 'assert';
 
 import Update from '../models/update.server.model';
+
+export const getTags = (req,res) => {
+  Update.find().exec((err,tags) => {
+    if(err){
+    return res.json({'success':false,'message':'some error ocurred'});
+    }
+  return res.json({'success':true,'message':'Updates for this tag fetched successfully',tags});
+  });
+}
+
+export const getUpdatesByTag = (req,res) => {
+  Update.find(
+    { "updateTags": { "$regex": {tag}, "$options": "i" } }).exec((err,updates) => {
+      if(err){
+      return res.json({'success':false,'message':'some error ocurred'});
+      }
+    return res.json({'success':true,'message':'Updates for this tag fetched successfully',updates});
+    });
+  };
 
 export const getUpdates = (req,res) => {
   Update.find().exec((err,updates) => {
@@ -57,22 +75,3 @@ export const deleteUpdate = (req,res) => {
     return res.json({'success':true,'message':update.updateText+' deleted successfully'});
   })
 }
-
-export const getTags = (req,res) => {
-  Update.find().exec((err,tags) => {
-    if(err){
-    return res.json({'success':false,'message':'some error ocurred'});
-    }
-  return res.json({'success':true,'message':'Updates for this tag fetched successfully',tags});
-  });
-}
-
-export const getUpdatesByTag = (req,res) => {
-  Update.find(
-    { "updateTags": { "$regex": "css", "$options": "i" } }).exec((err,updates) => {
-      if(err){
-      return res.json({'success':false,'message':'some error ocurred'});
-      }
-    return res.json({'success':true,'message':'Updates for this tag fetched successfully',updates});
-    });
-  };

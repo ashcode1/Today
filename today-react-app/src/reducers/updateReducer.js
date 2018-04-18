@@ -1,4 +1,3 @@
-// ./react-redux-today-app/src/reducers/updateReducer.js
 const INITIAL_STATE = {
   updates:[],
   update:null,

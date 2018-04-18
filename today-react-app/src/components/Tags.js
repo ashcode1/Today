@@ -1,5 +1,4 @@
 import React from 'react';
-import { Alert,Glyphicon,Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 class Tags extends React.Component {
@@ -38,19 +37,12 @@ class Tags extends React.Component {
        <tr><th>Tag</th><th className="textCenter">View</th></tr>
       </thead>
       <tbody>
-        
 
-        {/* reduce */}
-       
-
-        {tagsNoDupes.map((tag,i) => <tr key={i}>
-        {/* {console.log(tagsArr)} */}
-        {/* {console.log(updates)} */}
-
-        <td>{tag}</td>
-         
-         {/* <td className="textCenter"><Link to={`/${update._id}`}>View Updates</Link> </td> */}
-         </tr> )
+        {tagsNoDupes.map((tag,i) => 
+        <tr key={i}>
+          <td>{tag}</td>      
+          <td className="textCenter"><Link to={`/${tag}`}>View Updates related to this tag</Link></td>
+        </tr> )
         }
         </tbody>
         </table>

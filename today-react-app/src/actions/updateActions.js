@@ -1,8 +1,6 @@
-// ./react-redux-today-app/src/actions/updateActions.js
-
 const apiUrl = "/api/";
 
-export const toggleAddUpdate = () => {
+export const toggleAddSomething = () => {
   return {
     type: 'TOGGLE_ADD_UPDATE'
   }

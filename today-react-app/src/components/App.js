@@ -54,6 +54,9 @@ export default class App extends React.Component {
               <LinkContainer to={{ pathname: '/', query: {  } }}>
                 <NavItem eventKey={1}>Home</NavItem>
               </LinkContainer>
+              <LinkContainer to={{ pathname: '/tags', query: {  } }}>
+                <NavItem eventKey={1}>Tags</NavItem>
+              </LinkContainer>
             </Nav>
             <Nav pullRight>
               <LinkContainer to={{ pathname: '/', query: {  } }} onClick={this.toggleAddUpdate}>

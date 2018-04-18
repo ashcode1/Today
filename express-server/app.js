@@ -1,3 +1,4 @@
+// ./express-server/app.js
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -6,9 +7,11 @@ import mongoose from 'mongoose';
 import SourceMapSupport from 'source-map-support';
 import bb from 'express-busboy';
 
+// import routes
 import updateRoutes from './routes/update.server.route';
 
-// app
+
+// define our app using express
 const app = express();
 
 // express-busboy to parse multipart/form-data
@@ -21,13 +24,15 @@ app.use(function(req,res,next){
   next();
 })
 
+
 // configure app
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended:true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// port
+
+// set the port
 const port = process.env.PORT || 3001;
 
 // connect to database
@@ -49,6 +54,8 @@ app.get('/', (req,res) => {
 app.use((req, res, next) => {
   res.status(404).send('<h2 align=center>Page Not Found!</h2>');
 });
+
+
 
 // start the server
 app.listen(port,() => {
