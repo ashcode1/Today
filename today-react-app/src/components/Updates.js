@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const Updates = () => {
+const Updates = () => {
   <h1>UPDATES</h1>
 }
+
+export default Updates;
