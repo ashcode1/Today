@@ -19,7 +19,6 @@ export default class Update extends React.Component {
          <div>
            <h3>{updateState.update.updateText}</h3>
            <p>{updateState.update.updateDesc}</p>
-           <p>{updateState.update.updateTags}</p>
          </div>
        }
       </div>

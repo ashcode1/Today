@@ -1,3 +1,5 @@
+// ./react-redux-today-app/src/actions/updateActions.js
+
 const apiUrl = "/api/";
 
 export const toggleAddUpdate = () => {
@@ -49,22 +51,29 @@ export const addNewUpdateRequestFailed = (error) => {
   }
 }
 
+//Async action
 export const fetchUpdates = () => {
+  // Returns a dispatcher function
+  // that dispatches an action at later time
   return (dispatch) => {
+
     dispatch(fetchUpdatesRequest());
+    // Returns a promise
     return fetch(apiUrl)
-      .then(response => {
-        if(response.ok){
-          response.json().then(data => {
-            dispatch(fetchUpdatesSuccess(data.updates,data.message));
-          })
-        }
-        else{
-          response.json().then(error => {
-            dispatch(fetchUpdatesFailed(error));
-          })
-        }
-      })
+                .then(response => {
+                  if(response.ok){
+                    response.json().then(data => {
+                      dispatch(fetchUpdatesSuccess(data.updates,data.message));
+                    })
+                  }
+                  else{
+                    response.json().then(error => {
+                      dispatch(fetchUpdatesFailed(error));
+                    })
+                  }
+                })
+
+
   }
 }
 
@@ -74,6 +83,8 @@ export const fetchUpdatesRequest = () => {
   }
 }
 
+
+//Sync action
 export const fetchUpdatesSuccess = (updates,message) => {
   return {
     type: 'FETCH_UPDATES_SUCCESS',
@@ -93,19 +104,20 @@ export const fetchUpdatesFailed = (error) => {
 export const fetchUpdateById = (updateId) => {
   return (dispatch) => {
     dispatch(fetchUpdateRequest());
+      // Returns a promise
       return fetch(apiUrl + updateId)
-        .then(response => {console.log(response)
-          if(response.ok){
-            response.json().then(data => {
-              dispatch(fetchUpdateSuccess(data.update[0], data.message));
-            })
-          }
-          else{
-            response.json().then(error => {
-              dispatch(fetchUpdateFailed(error));
-            })
-          }
-        })
+             .then(response => {console.log(response)
+               if(response.ok){
+                 response.json().then(data => {
+                   dispatch(fetchUpdateSuccess(data.update[0], data.message));
+                 })
+               }
+               else{
+                 response.json().then(error => {
+                   dispatch(fetchUpdateFailed(error));
+                 })
+               }
+             })
 
   }
 }
@@ -116,6 +128,8 @@ export const fetchUpdateRequest = () => {
   }
 }
 
+
+//Sync action
 export const fetchUpdateSuccess = (update,message) => {
   return {
     type: 'FETCH_UPDATE_SUCCESS',

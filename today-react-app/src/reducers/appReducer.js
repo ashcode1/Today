@@ -9,7 +9,6 @@ const appReducer = (currentState = INITIAL_STATE, action) => {
             ...currentState,showAddUpdate: !currentState.showAddUpdate
           }
 
-
     default:
        return currentState;
 

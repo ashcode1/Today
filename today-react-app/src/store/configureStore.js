@@ -1,3 +1,4 @@
+// ./react-redux-today-app/src/store/configureStore.js
 import {createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
