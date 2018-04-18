@@ -1,5 +1,3 @@
-// ./react-redux-today-app/src/actions/updateActions.js
-
 const apiUrl = "/api/";
 
 export const toggleAddBook = () => {
