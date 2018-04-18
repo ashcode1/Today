@@ -9,6 +9,14 @@ export default class Updates extends React.Component {
     this.props.fetchUpdates();
   }
 
+  showEditModal(updateToEdit){
+    this.props.mappedshowEditModal(updateToEdit);
+  }
+
+  hideEditModal(){
+      this.props.mappedhideEditModal();
+  }
+
   submitEditUpdate(e){
     e.preventDefault();
     const editForm = document.getElementById('EditUpdateForm');
@@ -52,12 +60,50 @@ export default class Updates extends React.Component {
               <td>Today I have... {update.updateText}</td>
               <td className="textCenter"><Button bsStyle="info" bsSize="xsmall"><Glyphicon glyph="pencil" /></Button></td>
               <td className="textCenter"><Button bsStyle="danger" bsSize="xsmall"><Glyphicon glyph="trash" /></Button></td>
-              <td className="textCenter"><Link>View Details</Link> </td>
+              <td className="textCenter"><Link to={`/${update._id}`}>View Details</Link></td>
             </tr> )
             }
           </tbody>
         </table>
         }
+
+        {/* Modal for editing update */}
+        <Modal
+          show={updateState.showEditModal}
+          onHide={this.hideEditModal}
+          container={this}
+          aria-labelledby="contained-modal-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title">Edit Your Update</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="col-md-12">
+                {editUpdate  &&
+                  <UpdateEditForm updateData={editUpdate} editUpdate={this.submitEditUpdate} />
+                }
+                {editUpdate  && updateState.isFetching &&
+                  <Alert bsStyle="info">
+                  <strong>Updating...... </strong>
+                  </Alert>
+                }
+                {editUpdate  && !updateState.isFetching && updateState.error &&
+                  <Alert bsStyle="danger">
+                    <strong>Failed. {updateState.error} </strong>
+                  </Alert>
+                }
+                {editUpdate  && !updateState.isFetching && updateState.successMsg &&
+                  <Alert bsStyle="success">
+                    Update <strong> {editUpdate.updateText} </strong>{updateState.successMsg}
+                  </Alert>
+                }
+              </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={this.hideEditModal}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+
 
       </div>
     );

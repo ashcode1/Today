@@ -89,3 +89,45 @@ export const fetchUpdatesFailed = (error) => {
     error
   }
 }
+
+export const fetchUpdateById = (updateId) => {
+  return (dispatch) => {
+    dispatch(fetchUpdateRequest());
+      return fetch(apiUrl + updateId)
+        .then(response => {console.log(response)
+          if(response.ok){
+            response.json().then(data => {
+              dispatch(fetchUpdateSuccess(data.update[0], data.message));
+            })
+          }
+          else{
+            response.json().then(error => {
+              dispatch(fetchUpdateFailed(error));
+            })
+          }
+        })
+
+  }
+}
+
+export const fetchUpdateRequest = () => {
+  return {
+    type:'FETCH_UPDATE_REQUEST'
+  }
+}
+
+export const fetchUpdateSuccess = (update,message) => {
+  return {
+    type: 'FETCH_UPDATE_SUCCESS',
+    update: update,
+    message: message,
+    receivedAt: Date.now
+  }
+}
+
+export const fetchUpdateFailed = (error) => {
+  return {
+    type:'FETCH_UPDATE_FAILED',
+    error
+  }
+}

@@ -11,6 +11,7 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUpdates: () => dispatch(updateActions.fetchUpdates()),
+    mappedEditUpdate: updateToEdit => dispatch(updateActions.editUpdate(updateToEdit))
   }
 }
 
