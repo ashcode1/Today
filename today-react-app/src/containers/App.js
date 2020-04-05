@@ -5,15 +5,15 @@ import * as updateActions from '../actions/updateActions';
 
 const mapStateToProps = (state) => {
   return {
-    mappedAppState: state.appState
-  }
-}
+    mappedAppState: state.appState,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     mappedToggleAddUpdate: () => dispatch(appActions.toggleAddUpdate()),
-    mappedAddUpdate: update => dispatch(updateActions.addNewUpdate(update))
-  }
-}
+    mappedAddUpdate: (update) => dispatch(updateActions.addNewUpdate(update)),
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
